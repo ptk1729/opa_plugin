@@ -2,10 +2,7 @@ package main
 
 import (
 	"context"
-	"crypto/sha256"
-	"encoding/hex"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io"
 	"os"
@@ -16,12 +13,6 @@ import (
 	"github.com/open-policy-agent/opa/v1/ast"
 	"github.com/open-policy-agent/opa/v1/rego"
 	"github.com/open-policy-agent/opa/v1/types"
-)
-
-var (
-	policyPath = flag.String("policy", "policy.rego", "path to policy .rego file")
-	reportPath = flag.String("report", "", "path to report JSON file (defaults to stdin if empty)")
-	flagHash   = flag.String("hash", "", "expected SHA-256 of report (hex)")
 )
 
 func init() {
@@ -59,15 +50,21 @@ func init() {
 	)
 }
 
-func readReportBytes() ([]byte, error) {
-	// prefer -report file, else stdin
-	if *reportPath != "" {
-		return os.ReadFile(*reportPath)
+func readInput() (interface{}, error) {
+	//
+	var r io.Reader = os.Stdin
+	if len(os.Args) > 1 {
+		f, err := os.Open(os.Args[1])
+		if err != nil {
+			return nil, err
+		}
+		defer f.Close()
+		r = f
 	}
-	return io.ReadAll(os.Stdin)
-}
-
-func parseJSON(data []byte) (interface{}, error) {
+	data, err := io.ReadAll(r)
+	if err != nil {
+		return nil, err
+	}
 	if len(data) == 0 {
 		return nil, nil
 	}
@@ -78,82 +75,16 @@ func parseJSON(data []byte) (interface{}, error) {
 	return in, nil
 }
 
-func calcSHA256Hex(b []byte) string {
-	sum := sha256.Sum256(b)
-	return strings.ToLower(hex.EncodeToString(sum[:]))
-}
-
-func findHashInJSON(v interface{}) (string, bool) {
-	// looks for common keys: sha256 or hash at top level or under "report"
-	getFromMap := func(m map[string]interface{}) (string, bool) {
-		for _, k := range []string{"sha256", "hash", "sha256sum"} {
-			if val, ok := m[k]; ok {
-				if s, ok := val.(string); ok && s != "" {
-					return strings.ToLower(s), true
-				}
-			}
-		}
-		return "", false
-	}
-
-	switch t := v.(type) {
-	case map[string]interface{}:
-		if h, ok := getFromMap(t); ok {
-			return h, true
-		}
-		if rep, ok := t["report"].(map[string]interface{}); ok {
-			if h, ok := getFromMap(rep); ok {
-				return h, true
-			}
-		}
-	}
-	return "", false
-}
-
 func main() {
-	flag.Parse()
 
-	// read report bytes
-	reportBytes, err := readReportBytes()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "read report error: %v\n", err)
-		os.Exit(1)
-	}
-
-	// compute hash of raw report bytes
-	calculated := calcSHA256Hex(reportBytes)
-
-	// decide expected hash
-	expected := strings.ToLower(strings.TrimSpace(*flagHash))
-	if expected == "" {
-		in, err := parseJSON(reportBytes)
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "report JSON parse error: %v\n", err)
-			os.Exit(1)
-		}
-		var ok bool
-		expected, ok = findHashInJSON(in)
-		if !ok || expected == "" {
-			fmt.Fprintf(os.Stderr, "no expected hash provided and none found in report JSON\n")
-			os.Exit(1)
-		}
-	}
-
-	// compare
-	if calculated != expected {
-		fmt.Fprintf(os.Stderr, "hash mismatch: expected %s got %s\n", expected, calculated)
-		os.Exit(1)
-	}
-
-	// decode input for OPA from the report JSON
-	in, err := parseJSON(reportBytes)
+	in, err := readInput()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "input error: %v\n", err)
 		os.Exit(1)
 	}
 
-	// load policy from -policy
-	policyBytes, err := os.ReadFile(*policyPath)
+	// load policy.rego from disk
+	policyBytes, err := os.ReadFile("policy.rego")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "read policy error: %v\n", err)
 		os.Exit(1)
@@ -162,7 +93,7 @@ func main() {
 	ctx := context.Background()
 	r := rego.New(
 		rego.Query("data.report.verify.result"),
-		rego.Module(*policyPath, string(policyBytes)),
+		rego.Module("policy.rego", string(policyBytes)),
 	)
 
 	pq, err := r.PrepareForEval(ctx)
