@@ -1,0 +1,310 @@
+{
+  "metadata": {
+    "project_name": "Go test server",
+    "repo_url": "https://github.com/ptk1729/go_proj",
+    "commit_hash": "3ac4624edbfe92303809956e8cd3f0368d56730d",
+    "commit_message": "add verifier report as artifact",
+    "checked_at": "2025-08-25T12:22:39Z",
+    "verifier_version": "1.0.0",
+    "run_id": "b34be381-0a9e-4227-8d11-988b669f10ca",
+    "verification_status": "FAILED",
+    "report_sha256": "d5d643f684918d56b578ef552d04e0b69448c25c540e202686d17502d88d5838"
+  },
+  "report": {
+    "linting": {
+      "status": "WARNING",
+      "errors": null,
+      "warnings": [
+        "main.go:33:6: func `dummyDB` is unused (unused)",
+        "func dummyDB() {",
+        "^",
+        "main.go:43:6: func `dummyJWT` is unused (unused)",
+        "func dummyJWT() {",
+        "^"
+      ],
+      "tool": "golangci-lint"
+    },
+    "formatting": {
+      "status": "PASSED",
+      "tool": "gofmt",
+      "files_changed": null
+    },
+    "vulnerability_check": {
+      "status": "FAILED",
+      "tool": "osv-scanner",
+      "vulnerabilities": [
+        {
+          "id": "GO-2025-3849",
+          "package": "stdlib",
+          "ecosystem": "Go",
+          "summary": "Incorrect results returned from Rows.Scan in database/sql",
+          "details": "Cancelling a query (e.g. by cancelling the context passed to one of the query methods) during a call to the Scan method of the returned Rows can result in unexpected results if other queries are being made in parallel. This can result in a race condition that may overwrite the expected results with those of another query, causing the call to Scan to return either unexpected results from the other query or an error.",
+          "severity_object": {
+            "level": "",
+            "type": "",
+            "cvss_vector": "",
+            "score": ""
+          },
+          "fixed_version": "1.24.6"
+        }
+      ]
+    },
+    "commit_verification": {
+      "status": "FAILED",
+      "commits_checked": [
+        {
+          "commit": "3ac4624edbfe92303809956e8cd3f0368d56730d",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "6c199caabffad6a0bffe3767985661817697adaa",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "3c510e4e9c73a35d21e97f8fd49dd56dcb4dfdce",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "4db63ca62839ec07e0f4bc26155539d3ddf6dd22",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "d71a4551d7ba63c4399d02cc0d94ddf14ad3bc4a",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "ba733188b4542eedb6269214b5e0ed60fec63781",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "80c6e40517e09f819fe2690c525b831ef91dc9e3",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "e37fde5faa458f0fed71476991a3c7b46f5114ab",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "d3526257491b84d7b7f7d0151740f52ae687eb59",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "048a36cb39c909d4342176f0eacc7b1a1e31e629",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "d2d8136c0678a7033401875f59cbf970c5c0025b",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "5f729d40610a698c6b0d01c5bd8c1956f20601b3",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "9d07bd3c35b0b97330fd0800f0ad06cf6a0cf777",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "fa7b224ba40ee0748ac631d4c5534ec6302b3107",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "3b9d43273857358d34b693c4ac4336f55e6e1733",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "34c40d54cb45af83184f98390831e9b2544bd0e6",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "11727fcf1cb2abef6d01deeaf2f3db016c05b2c6",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "fc4d61be9c39583b608be8c14b8e7c389444359f",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "c62352bf87298e4583c816052ee2857ce2dedf75",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "0540a3551d737aa55c858402af8f74acec377aa6",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "",
+          "verified": false
+        },
+        {
+          "commit": "6068101bfd7af5f2db39efffe463101c91db774c",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "bd94beb1785320053f239a6aa5a72bf887341949",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "",
+          "verified": false
+        },
+        {
+          "commit": "244e911fd677dff0595df6b42ee9fcb423458304",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "",
+          "verified": false
+        },
+        {
+          "commit": "d9e817159b484668f08046c2dcc7f4753faae9ca",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "aa2a94776272f88f7b7f51590c9176abba105b94",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "e5e697cf1649a5c3255c0a033d166fbb4f151e75",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "2dbd5d648fd61e1f6a8dba2b4366e3047767baa3",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "06e842195b21daf7b44650b1367f590609cc7314",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "d2564ee9ce00bcede9edfafbe182ef53e30c69da",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "79722c49a6fe0eef824b0205569ae518c20de27e",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "8f5429169bebda7074a36c3a709206ab53f1d828",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "c3649c404177717164f2d5ec9e740394e73638dc",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "8490ddddc80e8baa009c782fc34997da4d780f9e",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        },
+        {
+          "commit": "1321fccb80ae933f08c2e901d5d61f7d81a903ce",
+          "author": "prateekrohilla4.pr@gmail.com",
+          "key_id": "49D9F27E562A5A49",
+          "verified": true
+        }
+      ],
+      "no_verified_commits": 31,
+      "no_unverified_commits": 3
+    },
+    "env_variables_check": {
+      "status": "PASSED",
+      "issues": null
+    },
+    "custom_checks": [
+      {
+        "name": "Dockerfile Best Practices",
+        "status": "SKIPPED",
+        "details": []
+      }
+    ],
+    "slsa_check": {
+      "status": "PASSED",
+      "binary_path": "/home/prateek/go_proj/binary-linux-amd64/binary-linux-amd64",
+      "provenance_path": "/home/prateek/go_proj/binary-linux-amd64.intoto.jsonl/binary-linux-amd64.intoto.jsonl",
+      "source_uri": "git+https://github.com/ptk1729/go_proj",
+      "slsa_level": "Unknown",
+      "missing_provenance": false,
+      "builder_id": "https://github.com/slsa-framework/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@refs/tags/v2.1.0",
+      "verified_requirements": [
+        {
+          "name": "binary_exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "provenance_exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "digest_computed",
+          "status": "PASSED"
+        },
+        {
+          "name": "provenance_read",
+          "status": "PASSED"
+        },
+        {
+          "name": "signature_and_policy",
+          "status": "PASSED"
+        },
+        {
+          "name": "source_uri_match",
+          "status": "PASSED"
+        }
+      ]
+    }
+  }
+}
